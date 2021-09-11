@@ -14,38 +14,31 @@
 #include <string.h>
 #include "tiempo.h"
 
-//DEFINICION DE CONSTANTES DEL PROGRAMA
-#define MAX 100
-
-//DECLARACION DE ESTRUCTURAS
-typedef unsigned int ui;
-typedef unsigned long ul;
-
 //VARIABLES GLOBALES
-ul n; 	//n determina el tamaño del algorito dado por argumento al ejecutar
+int n; 	//n determina el tamaño del algorito dado por argumento al ejecutar
 
 //DECLARACIÓN DE FUNCIONES
 void bubbleSortOp1();
 
 //PROGRAMA PRINCIPAL 
 int main (int argc, char* argv[]){	
-	ui numero;//Variable receptora de los números en el archivo 10millones.txt
+	int numero;//Variable receptora de los números en el archivo 10millones.txt
 	double utime0, stime0, wtime0,utime1, stime1, wtime1; //Variables para medición de tiempos
-	ul i; //Variables para loops
+	int i; //Variables para loops
 	
 	//Recepción y decodificación de argumentos
 	if (argc!=2){ //Si no se introducen exactamente 2 argumentos (Cadena de ejecución y cadena=n)
 		printf("\nIndicar el tamanio del algoritmo, por favor - Ejemplo: [user@equipo]$ %s 100 < numeros10millones.txt\n",argv[0]);
 		exit(1);
 	}else //Tomar el segundo argumento como tamaño del algoritmo
-		n=strtoul(argv[1],NULL,10);
+		n=atoi(argv[1]);
 
 	//Crear el arreglo de tamaño n
-	ui * datos = (ui*)malloc(sizeof(ui)*n);
+	int * datos = (int*)malloc(sizeof(int)*n);
 
 	//Llenar el arreglo
 	for(i=0;i<n;i++){
-        scanf("%u",&numero);
+        scanf("%d",&numero);
         datos[i]=numero;
     }
 
@@ -77,7 +70,7 @@ int main (int argc, char* argv[]){
 
 	//Comprobar números ordenados (imprimir arreglo ordenado)
 	for(i=0; i<n; i++){
-		printf("%u\n", datos[i]);
+		printf("%d\n", datos[i]);
 	}
 
 	//Terminar programa normalmente	
@@ -85,10 +78,10 @@ int main (int argc, char* argv[]){
 }
 
 //DEFINICIÓN DE FUNCIONES 
-void bubbleSortOp1(ui datos[]){//Ordenamiento Burbuja Optimización 1
-	ul i, j, aux;
+void bubbleSortOp1(int datos[]){//Ordenamiento Burbuja optimizacion 1
+    int i, j, aux;
     for(i=0; i<=n-2; i++){ //Se repite por cada elemento del arreglo
-        for(j=0; j<=(n-2-i); j++){ //Se comparan en pares todo el arrego pero sin comparar con el número mayor
+        for(j=0; j<=n-2-i; j++){ //Se comparan en pares el arrego sin comparar los mayores de cada iteración
             if(datos[j] > datos[j+1]){ //Si un número es mayor que su subsiguiente se realiza el intercambio
                 aux = datos[j];
                 datos[j] = datos[j+1];
