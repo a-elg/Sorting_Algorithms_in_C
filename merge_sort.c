@@ -15,15 +15,8 @@
 #include <math.h>
 #include "tiempo.h"
 
-//DEFINICION DE CONSTANTES DEL PROGRAMA
-#define MAX 100
-
-//DECLARACION DE ESTRUCTURAS
-typedef unsigned int ui;
-typedef unsigned long ul;
-
 //VARIABLES GLOBALES
-ul n; 	//n determina el tamaño del algorito dado por argumento al ejecutar
+int n; 	//n determina el tamaño del algorito dado por argumento al ejecutar
 
 //DECLARACIÓN DE FUNCIONES
 void mergeSort();
@@ -31,23 +24,23 @@ void merge();
 
 //PROGRAMA PRINCIPAL 
 int main (int argc, char* argv[]){	
-	ui numero;//Variable receptora de los números en el archivo 10millones.txt
+	int numero;//Variable receptora de los números en el archivo 10millones.txt
 	double utime0, stime0, wtime0,utime1, stime1, wtime1; //Variables para medición de tiempos
-	ul i; //Variables para loops
+	int i; //Variables para loops
 	
 	//Recepción y decodificación de argumentos
 	if (argc!=2){ //Si no se introducen exactamente 2 argumentos (Cadena de ejecución y cadena=n)
 		printf("\nIndicar el tamanio del algoritmo, por favor - Ejemplo: [user@equipo]$ %s 100 < numeros10millones.txt\n",argv[0]);
 		exit(1);
 	}else //Tomar el segundo argumento como tamaño del algoritmo
-		n=strtoul(argv[1],NULL,10);
+		n=atoi(argv[1]);
 
 	//Crear el arreglo de tamaño n
-	ui * datos = (ui*)malloc(sizeof(ui)*n);
+	int * datos = (int*)malloc(sizeof(int)*n);
 
 	//Llenar el arreglo
 	for(i=0;i<n;i++){
-        scanf("%u",&numero);
+        scanf("%d",&numero);
         datos[i]=numero;
     }
 
@@ -79,7 +72,7 @@ int main (int argc, char* argv[]){
 
 	//Comprobar números ordenados (imprimir arreglo ordenado)
 	for(i=0; i<n; i++){
-		printf("%u\n", datos[i]);
+		printf("%d\n", datos[i]);
 	}
 
 	//Terminar programa normalmente	
@@ -87,24 +80,24 @@ int main (int argc, char* argv[]){
 }
 
 //DEFINICIÓN DE FUNCIONES 
-void mergeSort(ui A[], ui p, ui r){ //p es el principio, q la mitad y r el final -> [P| |q| |r] ->r=n-1
-    ui q;
+void mergeSort(int A[], int p, int r){ //p es el principio, q la mitad y r el final -> [P| |q| |r] ->r=n-1
+    int q;
     if(p<r){ //No puede ser el principio y el final iguales, en caso contrario la lista es de 1 elemento
-        q = floor((p+r)/2);
-        mergeSort(A, p, q); //Lado izquierdo
-        mergeSort(A, q+1, r); //Lado derecho
-        merge(A, p, q, r); //Ordena las sublistas
+        q = floor((p+r)/2); //Se obtiene la posicion en la mitad
+        mergeSort(A, p, q); //Ordena lado izquierdo
+        mergeSort(A, q+1, r); //Ordena lado derecho
+        merge(A, p, q, r); //Une y ordena ambas sublistas
     }
 }
 
-void merge(ui *A, ui p, ui q, ui r){
-    ui l=r-p+1; //longitud de la lista a mezclar
-    ui i=p; //indice que itera lista izquierda
-    ui j=q+1; //indice que itera lista derecha
-	ui * c = (ui*)malloc(sizeof(ui)*l); //lista auxiliar de tamaño l
+void merge(int A[], int p, int q, int r){
+    int l=r-p+1; //longitud de la lista a mezclar
+    int i=p; //indice que itera lista izquierda
+    int j=q+1; //indice que itera lista derecha
+	int *c = (int*)malloc(sizeof(int)*l); //lista auxiliar de tamaño l
 
-    ui k=0;
-    for(k=0; k<l; k++){ //Se va llenando ordenadamente la lista auxiliar
+    int k;
+    for(k=0; k<l; k++){ //Se llena ordenadamente la lista auxiliar
         if(i<=q && j<=r){ //mientras haya elementos que iterar en ambas listas
             if(A[i]<A[j]){ //Si el elemento de la lista izquierda es menor al de la lista derecha
                 c[k] = A[i]; //Se coloca el elemento de la lista izquierda
@@ -117,16 +110,14 @@ void merge(ui *A, ui p, ui q, ui r){
             if(i<=q){ //Si sobraron elementos en la lista izquierda
                 c[k] = A[i]; //Se van pasando los elementos de la lista izquierda
                 i++; //Se aumenta el iterador de la lista izquierda
-            }else{ //Se aumenta el iterador de la lista izquierda
+            }else{ //Sobraron elementos en la lista derecha
                 c[k] = A[j]; //Se van pasando los elementos de la lista derecha
                 j++; //Sobraron elementos en la lista derecha
             }
         }
     }
-	// memcpy(A+p-r, c, sizeof(ui)*l);
-    // A[p-r] = *c; //Se coloca la sublista ordenada en la lista original
-	// for(k=0; k<l; k++){
-	// 	A[p-r+k] = c[k];
-	// }
-	A[r-p] = *c;
+
+	for(k=0; k<l; k++){//Se coloca la sublista ordenada en la lista original
+		A[p+k] = c[k];
+	}
 }
