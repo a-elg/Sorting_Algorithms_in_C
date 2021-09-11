@@ -41,7 +41,8 @@ int main (int argc, char* argv[]){
 		n=strtoul(argv[1],NULL,10);
 
 	//Crear el arreglo de tamaño n
-	ui datos[n];
+	ui * datos = (ui*)malloc(sizeof(ui)*n);
+
 	//Llenar el arreglo
 	for(i=0;i<n;i++){
         scanf("%u",&numero);
@@ -74,7 +75,7 @@ int main (int argc, char* argv[]){
 	printf("\n");
 
 
-	//Comprobar números ordenados
+	//Comprobar números ordenados (imprimir arreglo ordenado)
 	for(i=0; i<n; i++){
 		printf("%u\n", datos[i]);
 	}
