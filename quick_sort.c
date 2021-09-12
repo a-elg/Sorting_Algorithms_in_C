@@ -117,8 +117,8 @@ void quick_sort(int A[], int p, int fin)
 	int j;
 	if (p < fin)
 	{
-		j = pivote(A, p, fin); //Ordena con repecto al pivote inicial
-		quick_sort(A, p, j - 1); //Ordena los elementos menores al pivote inicial 
+		j = pivote(A, p, fin);	   //Ordena con repecto al pivote inicial
+		quick_sort(A, p, j - 1);   //Ordena los elementos menores al pivote inicial
 		quick_sort(A, j + 1, fin); // Ordeno los elementos mayores al pivote final
 	}
 }
@@ -130,7 +130,7 @@ int pivote(int A[], int p, int fin)
 	int piv, i, j;
 	piv = A[p]; //Asignacion del pivote
 	i = p + 1;	//Asignacion del indice i que se recorre al buscar numeros menores al pivote
-	j = fin;		//Asignacion del indice j que se recorre al buscar numeros mayores al pivote
+	j = fin;	//Asignacion del indice j que se recorre al buscar numeros mayores al pivote
 	while (1)
 	{
 		//Cuando el valor del arreglo leido sea menor al pivote y el indice i sea menor al final del arreglo
