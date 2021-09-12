@@ -128,6 +128,6 @@ void insert_sort(int A[], int n)
 			A[j] = A[j - 1]; //El elemento inmediato se recorre a su siguiente posicion
 			j--;
 		}
-		A[j] = temp;//temp toma la posicion de su previo elemento anterior 
+		A[j] = temp; //temp toma la posicion de su previo elemento anterior
 	}
 }
