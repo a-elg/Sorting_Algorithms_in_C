@@ -58,8 +58,8 @@ int main(int argc, char *argv[])
 	//Tomar el segundo argumento como tamaño del algoritmo
 	else
 		numero = atoi(argv[1]); //Conversion de la cadena de la consola a numero
-								//Asignacion de memoria dinamica para el arreglo de numeros a ordenar
-								/*Solicita memoria con la funcion malloc, en caso de fracaso, regresará error*/
+
+	//Asignacion de memoria dinamica para el arreglo de numeros a ordenar
 	if ((arreglo = malloc(sizeof(int) * numero)) == NULL)
 		perror("No se pudo solicitar memoria para el arreglo");
 	/*lee los numeros del archivo indicado en consola y los almacena en el arreglo*/
