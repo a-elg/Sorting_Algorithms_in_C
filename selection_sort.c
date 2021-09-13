@@ -115,16 +115,22 @@ int main (int argc, char* argv[])
 //Función que implementa algoritmo de selección 
 void selection_sort(int A[], int n){
 	int i, k, p, temp;
-	//recorre arreglo del inicio a una posición atrás 
+	//recorre arreglo del inicio hasta una posición atrás 
 	for(k = 0; k <=n-2; k++){
 		p = k; //Se guarda el índice 
-		//Se recorre el arreglo posición adelante
+		//Se recorre el arreglo desde una posición adelante hasta el final
 		for(i = k+1; i <= n-1; i++){
-			if(A[i]< A[p]){
+			/*si el número dado en el recorrido del arreglo interno es mas pequeño que el del recorrido del arreglo externo
+			se guarda el indice del recorrido interno en p, tentativamente*/
+			if(A[i]< A[p]){ 
 				p=i;
 			}
 		}
-		//se hace uso de una variable temporal para almacenar
+		/*
+		--más pequeño en temp
+		--Se hace intercambio entre el número del recorrido externo (A[k]) y el pivote (A[p])
+		--más pequeño en A[k] (recorrido externo)
+		*/
 		temp = A[p];
 		A[p] = A[k];
 		A[k] = temp;
