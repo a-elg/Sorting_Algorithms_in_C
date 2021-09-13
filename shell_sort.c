@@ -115,20 +115,26 @@ int main (int argc, char* argv[])
 void shell_sort(int A[], int n){
 	int i, k, b, temp;
 
+	/*definimos el salto como k*/
 	k = trunc(n/2); 
+	/*se harán las iteraciones hasta que el salto sea mayor o igual a 1*/
 	while (k >= 1){
 		b = 1;
 		while (b!= 0){
 			b=0;
 			for(i = k; i <= n-1; i++){
 				if (A[i-k] > A[i]){
+					/*Se guarda el menor valor en variable temporal*/
 					temp = A[i];
+					/*Se hace primer intercambio: mayor se acomoda en donde estaba menor valor*/
 					A[i] = A[i-k];
+					/*Segundo intercambio: menor se acomoda en donde estaba mayor valor*/
 					A[i-k] = temp;
 					b=b+1;
 				}
 			}
 		}
+		/*Al terminar el recorrido del arreglo con salto = k, se vuelve a dividir ese salto y realiza un nuevo recorrido*/
 		k=trunc(k/2);
 	}
 }	
