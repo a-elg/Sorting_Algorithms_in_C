@@ -57,7 +57,7 @@ int main (int argc, char* argv[])
 	} 
 	//Tomar el segundo argumento como tamaño del algoritmo
 	else
-		numero=strtoul(argv[1],NULL,10);
+		numero=atoi(argv[1]);
 
 	//Asignacion de memoria dinamica para el arreglo de numeros a ordenar
 	if ((arreglo = malloc(sizeof(int) * numero)) == NULL)
