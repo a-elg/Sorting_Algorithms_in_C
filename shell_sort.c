@@ -13,6 +13,7 @@
 //*****************************************************************
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <string.h>
 #include "tiempo.h"
 //*****************************************************************
@@ -114,12 +115,12 @@ int main (int argc, char* argv[])
 void shell_sort(int A[], int n){
 	int i, k, b, temp;
 
-	k = TRUNC(n/2); 
+	k = trunc(n/2); 
 	while (k >= 1){
 		b = 1;
 		while (b!= 0){
 			b=0;
-			for(i = k; i >= n-1; i++){
+			for(i = k; i <= n-1; i++){
 				if (A[i-k] > A[i]){
 					temp = A[i];
 					A[i] = A[i-k];
@@ -128,6 +129,6 @@ void shell_sort(int A[], int n){
 				}
 			}
 		}
-		k=TRUNC(k/2);
+		k=trunc(k/2);
 	}
 }	
