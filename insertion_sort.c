@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 
 	//Asignacion de memoria dinamica para el arreglo de numeros a ordenar
 	if ((arreglo = malloc(sizeof(int) * numero)) == NULL)
-		perror("No se pudo solicitar memoria para el arreglo");
+		perror("La asignacion dinamica no se pudo realizar correctamente");
 	/*lee los numeros del archivo indicado en consola y los almacena en el arreglo*/
 	for (i = 0; i < numero; i++)
 	{
