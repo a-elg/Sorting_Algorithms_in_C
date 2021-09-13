@@ -18,21 +18,21 @@
 //*****************************************************************
 //DEFINICION DE CONSTANTES DEL PROGRAMA
 //*****************************************************************
-#define MAX 100
+//#define MAX 100
 //********************************************************************************
 //DECLARACION DE ESTRUCTURAS
 //********************************************************************************
-typedef unsigned int ui;
-typedef unsigned long ul;
+
 //*****************************************************************
 //VARIABLES GLOBALES
 //*****************************************************************
-ui datos[MAX];
-ul n; 	//n determina el tamaño del algorito dado por argumento al ejecutar
+
+//ul n; 	//n determina el tamaño del algorito dado por argumento al ejecutar
 //*****************************************************************
 //DECLARACIÓN DE FUNCIONES
 //*****************************************************************
-void algo_sort();
+//prototipo para la función que implementa el algoritmo de ordenamiento shell
+void shell_sort(int A[], int n);
 //*****************************************************************
 //PROGRAMA PRINCIPAL 
 //*****************************************************************
@@ -40,10 +40,11 @@ int main (int argc, char* argv[])
 {	
 	//******************************************************************	
 	//Variables del main
-	ui numero;//Variable receptora de los números en el archivo 10millones.txt
-	//******************************************************************	
+	int *arreglo;
+	int numero;
+	int i, j;
 	double utime0, stime0, wtime0,utime1, stime1, wtime1; //Variables para medición de tiempos
-	ul i; //Variables para loops
+	//ul i; //Variables para loops
 	//******************************************************************	
 	//Recepción y decodificación de argumentos
 	//******************************************************************	
@@ -55,12 +56,15 @@ int main (int argc, char* argv[])
 	} 
 	//Tomar el segundo argumento como tamaño del algoritmo
 	else
-		n=strtoul(argv[1],NULL,10);
+		numero=strtoul(argv[1],NULL,10);
 
-	for(i=0;i<n;i++){
-        scanf("%u",&numero);
-        datos[i]=numero;
-    }
+	//Asignacion de memoria dinamica para el arreglo de numeros a ordenar
+	if ((arreglo = malloc(sizeof(int) * numero)) == NULL)
+		perror("No se pudo solicitar memoria para el arreglo");
+	/*lee los numeros del archivo indicado en consola y los almacena en el arreglo*/
+	for (i = 0; i < numero; i++){
+		scanf("%d", &arreglo[i]);
+	}
 	//******************************************************************	
 	//Iniciar el conteo del tiempo para las evaluaciones de rendimiento
 	//******************************************************************	
@@ -70,13 +74,17 @@ int main (int argc, char* argv[])
 	//******************************************************************	
 	//Algoritmo
 	//******************************************************************	
-	algo_sort();
+	shell_sort(arreglo, numero);
 	//******************************************************************
 
 	//******************************************************************	
 	//Evaluar los tiempos de ejecución 
 	//******************************************************************
 	uswtime(&utime1, &stime1, &wtime1);
+
+	/*arreglo ordenado*/
+	for (i = 0; i < numero; i++)
+		printf("%d\n", arreglo[i]);
 	
 	//Cálculo del tiempo de ejecución del programa
 	printf("\n");
@@ -103,7 +111,23 @@ int main (int argc, char* argv[])
 //DEFINICIÓN DE FUNCIONES 
 //************************************************************************
 
-void algo_sort(){
-	for(ul i=0;i<n;i++)
-		printf("%u\n",datos[i]);
-}
+void shell_sort(int A[], int n){
+	int i, k, b, temp;
+
+	k = TRUNC(n/2); 
+	while (k >= 1){
+		b = 1;
+		while (b!= 0){
+			b=0;
+			for(i = k; i >= n-1; i++){
+				if (A[i-k] > A[i]){
+					temp = A[i];
+					A[i] = A[i-k];
+					A[i-k] = temp;
+					b=b+1;
+				}
+			}
+		}
+		k=TRUNC(k/2);
+	}
+}	
