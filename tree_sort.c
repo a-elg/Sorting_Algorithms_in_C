@@ -102,7 +102,7 @@ int main (int argc, char* argv[])
 //********************************************************************************
 //DECLARACION DE ESTRUCTURAS
 //********************************************************************************
-struct nodo_arbol{
+struct nodo_arbol{ //Cada nodo tiene 2 hijo, un valor y un padre
     int valor;
     struct nodo_arbol *h_derecho;
     struct nodo_arbol *h_izquierdo;
@@ -161,9 +161,10 @@ int main (int argc, char* argv[]){
         insertar(datos[i]);
     }
     arbol_a_arreglo(); 
-    
+    /*
     for(int i=0;i<n;i++)
-        printf("%d\n",datos[i]);   
+        printf("%d\n",datos[i]);  
+    */ 
 	//******************************************************************
 
 	//******************************************************************	
