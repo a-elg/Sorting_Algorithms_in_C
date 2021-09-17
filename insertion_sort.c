@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
 	uswtime(&utime1, &stime1, &wtime1);
 
 	/*arreglo ya ordenado*/
-	for (i = 0; i < numero; i++)
+	/*for (i = 0; i < numero; i++)
 		printf("%d\n", arreglo[i]);
 
 	//Cálculo del tiempo de ejecución del programa
@@ -104,7 +104,8 @@ int main(int argc, char *argv[])
 	printf("user (Tiempo de procesamiento en CPU) %.10e s\n", utime1 - utime0);
 	printf("sys (Tiempo en acciónes de E/S)  %.10e s\n", stime1 - stime0);
 	printf("CPU/Wall   %.10f %% \n", 100.0 * (utime1 - utime0 + stime1 - stime0) / (wtime1 - wtime0));
-	printf("\n");
+	printf("\n");*/
+	printf("Insrt %15.10e  %21.10e %21.10e %21.10f%% %21d\n", wtime1 - wtime0,utime1 - utime0,stime1 - stime0,100.0 * (utime1 - utime0 + stime1 - stime0) / (wtime1 - wtime0));
 	//******************************************************************
 
 	//Terminar programa normalmente
