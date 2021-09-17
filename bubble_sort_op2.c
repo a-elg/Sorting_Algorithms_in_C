@@ -13,48 +13,63 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tiempo.h"
+//*****************************************************************
 
-//Definicion de constantes
+//DEFINICIÓN DE CONSTANTES
 #define true 1
 #define false 0
+//*****************************************************************
 
 //VARIABLES GLOBALES
-int n; 	//n determina el tamaño del algorito dado por argumento al ejecutar
+//n determina el tamaño del algorito dado por argumento al ejecutar
+int n; 	
+//*****************************************************************
 
-//DECLARACIÓN DE FUNCIONES
+//DECLARACIÓN DE FUNCIONES (PROTOTIPOS)
+/*prototipo para la función que implementa el algoritmo de ordenamiento por el método de la burbuja tradicional*/
 void bubbleSortOp2();
+//*****************************************************************
 
 //PROGRAMA PRINCIPAL 
 int main (int argc, char* argv[]){	
-	int numero;//Variable receptora de los números en el archivo 10millones.txt
-	double utime0, stime0, wtime0,utime1, stime1, wtime1; //Variables para medición de tiempos
-	int i; //Variables para loops
+	//Variables del main	
+	int *datos;
+	int i;
+	//Variables para medición de tiempos
+	double utime0, stime0, wtime0,utime1, stime1, wtime1;
 	
-	//Recepción y decodificación de argumentos
+	/* RECEPCIÓN Y DECODIFICACIÓN DE ARGUMENTOS */
+	//Condicional *if* se ejecuta en caso de no introducirse exactamente 2 argumentos (Cadena de ejecución y cadena=n)
 	if (argc!=2){ //Si no se introducen exactamente 2 argumentos (Cadena de ejecución y cadena=n)
 		printf("\nIndicar el tamanio del algoritmo, por favor - Ejemplo: [user@equipo]$ %s 100 < numeros10millones.txt\n",argv[0]);
 		exit(1);
 	}else //Tomar el segundo argumento como tamaño del algoritmo
 		n=atoi(argv[1]);
 
-	//Crear el arreglo de tamaño n
-	int * datos = (int*)malloc(sizeof(int)*n);
+	//Asignacion de memoria dinamica para el arreglo de numeros a ordenar
+	if ((datos = malloc(sizeof(int)*n)) == NULL)
+		perror("La asignacion dinamica no se realizo correctamente");
 
-	//Llenar el arreglo
+	//Llenado del arreglo
 	for(i=0;i<n;i++){
-        scanf("%d",&numero);
-        datos[i]=numero;
+        scanf("%d",&datos[i]);
     }
+	//*****************************************************************
 
-	//Iniciar el conteo del tiempo para las evaluaciones de rendimiento
+	//INICIAR EL CONTEO DEL TIEMPO PARA LAS EVALUACIONES DE RENDIMIENTO	
 	uswtime(&utime0, &stime0, &wtime0);
 	
-	//Algoritmo
+	//ALGORITMO	
+	//Llamada a la función del algoritmo
 	bubbleSortOp2(datos);
 
-	//Evaluar los tiempos de ejecución 
+	//EVALUAR LOS TIEMPOS DE EJECUCIÓN 
 	uswtime(&utime1, &stime1, &wtime1);
 	
+	//Comprobar números ordenados (imprimir arreglo ordenado)
+	/*for(i=0; i<n; i++)
+		printf("%d\n", datos[i]);
+
 	//Cálculo del tiempo de ejecución del programa
 	printf("\n");
 	printf("real (Tiempo total)  %.10f s\n",  wtime1 - wtime0);
@@ -70,18 +85,21 @@ int main (int argc, char* argv[]){
 	printf("sys (Tiempo en acciónes de E/S)  %.10e s\n",  stime1 - stime0);
 	printf("CPU/Wall   %.10f %% \n",100.0 * (utime1 - utime0 + stime1 - stime0) / (wtime1 - wtime0));
 	printf("\n");
+	*/
 
+	//FORMATO PARA OBTENER TIEMPO DE EJECUCIÓN 
+	printf("Insrt %15.10e  %21.10e %21.10e %21.10f%% \n", wtime1 - wtime0,utime1 - utime0,stime1 - stime0,100.0 * (utime1 - utime0 + stime1 - stime0) / (wtime1 - wtime0));
 
-	//Comprobar números ordenados (imprimir arreglo ordenado)
-	for(i=0; i<n; i++){
-		printf("%d\n", datos[i]);
-	}
-
-	//Terminar programa normalmente	
+	//Finaliza programa
 	exit (0);	
 }
 
 //DEFINICIÓN DE FUNCIONES 
+//************************************************************************
+
+/*FUNCIÓN QUE IMPLEMENTA EL ALGORITMO DE BURBUJA EN SU SEGUNDA VERSIÓN OPTIMIZADA*/
+/* Recibe: Arreglo de enteros datos[]*/
+/* Devuelve: void */
 void bubbleSortOp2(int datos[]){//Ordenamiento Burbuja optimizacion 2
 	int cambios = true;
 	int i=0, j, aux;
