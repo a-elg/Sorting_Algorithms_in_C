@@ -83,8 +83,8 @@ int main(int argc, char *argv[])
 	uswtime(&utime1, &stime1, &wtime1);
 
 	//Prueba de ordenamiento del arreglo
-	for (i = 0; i < numero; i++)
-		printf("%d\n", arreglo[i]);
+/*	for (i = 0; i < numero; i++)
+		printf("%d\n", arreglo[i]);*/
 
 	//Cálculo del tiempo de ejecución del programa
 	/*	printf("\n");
