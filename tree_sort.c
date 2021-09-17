@@ -86,7 +86,7 @@ int main (int argc, char* argv[]){
 		printf("%d\n", datos[i]);
 	
 	//Cálculo del tiempo de ejecución del programa
-	printf("\n");
+	/*printf("\n");
 	printf("real (Tiempo total)  %.10f s\n",  wtime1 - wtime0);
 	printf("user (Tiempo de procesamiento en CPU) %.10f s\n",  utime1 - utime0);
 	printf("sys (Tiempo en acciónes de E/S)  %.10f s\n",  stime1 - stime0);
@@ -100,12 +100,10 @@ int main (int argc, char* argv[]){
 	printf("sys (Tiempo en acciónes de E/S)  %.10e s\n",  stime1 - stime0);
 	printf("CPU/Wall   %.10f %% \n",100.0 * (utime1 - utime0 + stime1 - stime0) / (wtime1 - wtime0));
 	printf("\n");
-	*/
-
-	//FORMATO PARA OBTENER TIEMPO DE EJECUCIÓN 
-	printf("Insrt %15.10e  %21.10e %21.10e %21.10f%% \n", wtime1 - wtime0,utime1 - utime0,stime1 - stime0,100.0 * (utime1 - utime0 + stime1 - stime0) / (wtime1 - wtime0));
-
-	//Finaliza programa 
+	//******************************************************************
+    */
+    printf("Tree %15.10e  %21.10e %21.10e %21.10f%%\n", wtime1 - wtime0,utime1 - utime0,stime1 - stime0,100.0 * (utime1 - utime0 + stime1 - stime0) / (wtime1 - wtime0));
+	//Terminar programa normalmente	
 	exit (0);	
 }
 
