@@ -6,22 +6,20 @@
 //Compilación: "gcc main.c tiempo.x  -o main(teimpo.c si se tiene la implementación de la libreria o tiempo.o si solo se tiene el codigo objeto)"
 //Ejecución: "./main n" (Linux y MAC OS)
 //*****************************************************************
- 
-//*****************************************************************
+
 //LIBRERIAS INCLUIDAS
-//*****************************************************************
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/resource.h>
 #include "tiempo.h"
 //*****************************************************************
+
 //DEFINICION DE CONSTANTES DEL PROGRAMA
-//*****************************************************************
 #define MAX 10000000
-//********************************************************************************
+//*****************************************************************
+
 //DECLARACION DE ESTRUCTURAS
-//********************************************************************************
 struct nodo_arbol{ //Cada nodo tiene 2 hijo, un valor y un padre
     int valor;
     struct nodo_arbol *h_derecho;
@@ -29,68 +27,63 @@ struct nodo_arbol{ //Cada nodo tiene 2 hijo, un valor y un padre
     struct nodo_arbol *padre;
 };typedef struct nodo_arbol nodo;
 //*****************************************************************
+
 //VARIABLES GLOBALES
-//*****************************************************************
 int datos[MAX];//Arreglo de datos
 int n; 	//n determina el tamaño del algorito dado por argumento al ejecutar
 nodo *raiz; //raiz del árbol
 //*****************************************************************
-//DECLARACIÓN DE FUNCIONES
+
+//DECLARACIÓN DE FUNCIONES (PROTOTIPOS)
+/*prototipo para la función que crea un nodo (hoja) para ser insertado*/
+nodo* crearNodo(int dato); 
+/*prototipo para la función que inserta un valor en el árbol*/
+void insertar(int dato); 
+/*prototipo para la función que trasfiere los datos del árbol al arreglo original*/
+void arbol_a_arreglo(); 
 //*****************************************************************
-nodo* crearNodo(int dato); //Crea un nodo (hoja) para ser insertado
-void insertar(int dato); //inserta un valor en el árbol
-void arbol_a_arreglo(); //Trasfiere los datos del árbol al arreglo original
-//*****************************************************************
+
 //PROGRAMA PRINCIPAL 
-//*****************************************************************
-int main (int argc, char* argv[]){
-	//******************************************************************	
+int main (int argc, char* argv[]){	
 	//Variables del main
 	int numero;//Variable receptora de los números en el archivo 10millones.txt
-	//******************************************************************	
-	double utime0, stime0, wtime0,utime1, stime1, wtime1; //Variables para medición de tiempos
-	int i; //Variables para loops
-	//******************************************************************	
-	//Recepción y decodificación de argumentos
-	//******************************************************************	
+	//Variables para medición de tiempos	
+	double utime0, stime0, wtime0,utime1, stime1, wtime1; 
+    //Variables para loops
+	int i; 
 
-	//Si no se introducen exactamente 2 argumentos (Cadena de ejecución y cadena=n)
+	/* RECEPCIÓN Y DECODIFICACIÓN DE ARGUMENTOS */
+	//Condicional *if* se ejecuta en caso de no introducirse exactamente 2 argumentos (Cadena de ejecución y cadena=n)
 	if (argc!=2){
 		printf("\nIndicar el tamanio del algoritmo, por favor - Ejemplo: [user@equipo]$ %s 100 < numeros10millones.txt\n",argv[0]);
 		exit(1);
-	} 
-	//Tomar el segundo argumento como tamaño del algoritmo
-	else
+	} else //Tomar el segundo argumento como tamaño del algoritmo
 		n=atoi(argv[1]);
 
 	for(i=0;i<n;i++){
         scanf("%u",&numero);
         datos[i]=numero;
     }
-	//******************************************************************	
-	//Iniciar el conteo del tiempo para las evaluaciones de rendimiento
-	//******************************************************************	
-	uswtime(&utime0, &stime0, &wtime0);
-	//******************************************************************
+	//*****************************************************************
 	
-	//******************************************************************	
-	//Algoritmo
-	//******************************************************************	
-    raiz=crearNodo(datos[0]);
+	//INICIAR EL CONTEO DEL TIEMPO PARA LAS EVALUACIONES DE RENDIMIENTO	
+	uswtime(&utime0, &stime0, &wtime0);
+	
+	//ALGORITMO	
+	//Llamada a la función del algoritmo
+	raiz=crearNodo(datos[0]);
     for (int i=1;i<n;i++){
         insertar(datos[i]);
     }
     arbol_a_arreglo(); 
-    /*
-    for(int i=0;i<n;i++)
-        printf("%d\n",datos[i]);  
-    */ 
-	//******************************************************************
-
-	//******************************************************************	
-	//Evaluar los tiempos de ejecución 
-	//******************************************************************
+    
+	//EVALUAR LOS TIEMPOS DE EJECUCIÓN 
 	uswtime(&utime1, &stime1, &wtime1);
+	
+    
+	//Comprobar números ordenados (imprimir arreglo ordenado)
+	/*for(i=0; i<n; i++)
+		printf("%d\n", datos[i]);
 	
 	//Cálculo del tiempo de ejecución del programa
 	printf("\n");
@@ -107,15 +100,21 @@ int main (int argc, char* argv[]){
 	printf("sys (Tiempo en acciónes de E/S)  %.10e s\n",  stime1 - stime0);
 	printf("CPU/Wall   %.10f %% \n",100.0 * (utime1 - utime0 + stime1 - stime0) / (wtime1 - wtime0));
 	printf("\n");
-	//******************************************************************
+	*/
 
-	//Terminar programa normalmente	
+	//FORMATO PARA OBTENER TIEMPO DE EJECUCIÓN 
+	printf("Insrt %15.10e  %21.10e %21.10e %21.10f%% \n", wtime1 - wtime0,utime1 - utime0,stime1 - stime0,100.0 * (utime1 - utime0 + stime1 - stime0) / (wtime1 - wtime0));
+
+	//Finaliza programa 
 	exit (0);	
 }
 
-//************************************************************************
 //DEFINICIÓN DE FUNCIONES 
 //************************************************************************
+
+/*FUNCIÓN QUE CREA UN NODO (hoja) PARA SER INSERTADO*/
+/* Recibe: entero dato*/
+/* Devuelve: apuntador de tipo nodo */
 nodo* crearNodo(int dato){
     //Apartar espacio para un nuevo nodo
     nodo *nuevo_nodo=(nodo*)malloc(sizeof(nodo));
@@ -130,6 +129,9 @@ nodo* crearNodo(int dato){
     return nuevo_nodo;
 }
 
+/*FUNCIÓN QUE INSERTA UN VALOR EN EL ÁRBOL*/
+/* Recibe: entero dato*/
+/* Devuelve: vacío */
 void insertar(int dato){
     nodo*aux=raiz;
     nodo*nuevo_nodo=crearNodo(dato);
@@ -162,6 +164,9 @@ void insertar(int dato){
     
 }
 
+/*FUNCIÓN QUE TRANSFIERE LOS DATOS DEL ÁRBOL AL ARREGLO ORIGINAL*/
+/* Recibe: vacío*/
+/* Devuelve: vacío */
 void arbol_a_arreglo(){
     int indice_arreglo=0;
     int val_hijo;//Valor para identificar al hijo que se eliminará
