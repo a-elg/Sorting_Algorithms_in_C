@@ -13,43 +13,54 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tiempo.h"
+//*****************************************************************
 
 //VARIABLES GLOBALES
 int n; 	//n determina el tamaño del algorito dado por argumento al ejecutar
 
-//DECLARACIÓN DE FUNCIONES
+//DECLARACIÓN DE FUNCIONES (PROTOTIPOS)
+/*prototipo para la función que implementa el algoritmo de ordenamiento por selección*/
 void bubbleSortOp1();
+//*****************************************************************
 
 //PROGRAMA PRINCIPAL 
-int main (int argc, char* argv[]){	
-	int numero;//Variable receptora de los números en el archivo 10millones.txt
-	double utime0, stime0, wtime0,utime1, stime1, wtime1; //Variables para medición de tiempos
-	int i; //Variables para loops
+int main (int argc, char* argv[]){		
+	//Variables del main
+	int *datos;
+	int i;
+	//Variables para medición de tiempos
+	double utime0, stime0, wtime0,utime1, stime1, wtime1; 
 	
-	//Recepción y decodificación de argumentos
+	/* RECEPCIÓN Y DECODIFICACIÓN DE ARGUMENTOS */
+	//Condicional *if* se ejecuta en caso de no introducirse exactamente 2 argumentos (Cadena de ejecución y cadena=n)
 	if (argc!=2){ //Si no se introducen exactamente 2 argumentos (Cadena de ejecución y cadena=n)
 		printf("\nIndicar el tamanio del algoritmo, por favor - Ejemplo: [user@equipo]$ %s 100 < numeros10millones.txt\n",argv[0]);
 		exit(1);
 	}else //Tomar el segundo argumento como tamaño del algoritmo
 		n=atoi(argv[1]);
 
-	//Crear el arreglo de tamaño n
-	int * datos = (int*)malloc(sizeof(int)*n);
-
-	//Llenar el arreglo
-	for(i=0;i<n;i++){
-        scanf("%d",&numero);
-        datos[i]=numero;
-    }
-
-	//Iniciar el conteo del tiempo para las evaluaciones de rendimiento
+	//Asignacion de memoria dinamica para el arreglo de numeros a ordenar
+	if ((datos = malloc(sizeof(int) * n)) == NULL)
+		perror("La asignacion dinamica no se realizo correctamente");
+	//Llenado del arreglo
+	for (i = 0; i < n; i++){
+		scanf("%d", &datos[i]);
+	}	
+	//*****************************************************************
+	
+	//INICIAR EL CONTEO DEL TIEMPO PARA LAS EVALUACIONES DE RENDIMIENTO	
 	uswtime(&utime0, &stime0, &wtime0);
 	
-	//Algoritmo
+	//ALGORITMO	
+	//Llamada a la función del algoritmo
 	bubbleSortOp1(datos);
 
-	//Evaluar los tiempos de ejecución 
+	//EVALUAR LOS TIEMPOS DE EJECUCIÓN 
 	uswtime(&utime1, &stime1, &wtime1);
+	
+	//Comprobar números ordenados (imprimir arreglo ordenado)
+	/*for (i = 0; i < n; i++)
+		printf("%d\n", datos[i]);
 	
 	//Cálculo del tiempo de ejecución del programa
 	printf("\n");
@@ -66,23 +77,27 @@ int main (int argc, char* argv[]){
 	printf("sys (Tiempo en acciónes de E/S)  %.10e s\n",  stime1 - stime0);
 	printf("CPU/Wall   %.10f %% \n",100.0 * (utime1 - utime0 + stime1 - stime0) / (wtime1 - wtime0));
 	printf("\n");
+	*/
 
+	//FORMATO PARA OBTENER TIEMPO DE EJECUCIÓN 
+	printf("Insrt %15.10e  %21.10e %21.10e %21.10f%% \n", wtime1 - wtime0,utime1 - utime0,stime1 - stime0,100.0 * (utime1 - utime0 + stime1 - stime0) / (wtime1 - wtime0));
 
-	//Comprobar números ordenados (imprimir arreglo ordenado)
-	for(i=0; i<n; i++){
-		printf("%d\n", datos[i]);
-	}
-
-	//Terminar programa normalmente	
+	//Finaliza programa 
 	exit (0);	
 }
 
 //DEFINICIÓN DE FUNCIONES 
+//************************************************************************
+
+/*FUNCIÓN QUE IMPLEMENTA EL ALGORITMO DE BURBUJA EN SU PRIMERA VERSIÓN OPTIMIZADA*/
+/* Recibe: Arreglo de enteros datos[]*/
+/* Devuelve: void */
 void bubbleSortOp1(int datos[]){//Ordenamiento Burbuja optimizacion 1
     int i, j, aux;
     for(i=0; i<=n-2; i++){ //Se repite por cada elemento del arreglo
         for(j=0; j<=n-2-i; j++){ //Se comparan en pares el arrego sin comparar los mayores de cada iteración
-            if(datos[j] > datos[j+1]){ //Si un número es mayor que su subsiguiente se realiza el intercambio
+			//Si un número es mayor que su subsiguiente se realiza el intercambio
+            if(datos[j] > datos[j+1]){
                 aux = datos[j];
                 datos[j] = datos[j+1];
                 datos[j+1] = aux;
