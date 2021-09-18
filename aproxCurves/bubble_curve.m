@@ -1,0 +1,27 @@
+%%VALORES DE X (tiempo real en ms)
+x = [ 3.41E-05 3.30E-03 1.79E-02 .69E-02 1.64E-01 1.85E-01 6.25E+00 9.85E+00 1.45E+01 2.03E+01 4.09E+01 5.84E+01 1.43E+02 1.58E+02 2.45E+02 3.53E+02 4.82E+02 6.28E+02 8.02E+02 1.07E+03 ];
+%%VALORES DE Y (n-pruebas)
+y = [ 100 1000 5000 10000 5000 100000 200000 400000 600000 800000 1000000 2000000 3000000 4000000 5000000 6000000 7000000 8000000 9000000 10000000];
+
+%%OBTENER UN POLINOMIO QUE SE AJUSTE A LOS PUNTOS X Y Y
+p = polyfit(x,y,3)
+a=p(1);
+b=p(2);
+c=p(3);
+d=p(4);
+fprintf('f(x)=%fx^3+%fx^2+%fx+%f\n',a,b,c,d);
+
+%%SE CREA UN ESPACIO PARA REALIZAR UNA GRAFICA EN DONDE SE
+%%COMPARA LA CURVA AJUSTADA CONTRA LOS VALORES EXPERIMENTALES
+xi=linspace(0,2000,2000);      %%ESPACIO DE PUNTOS PARA Xi
+z = polyval(p,xi);        %%EVALUACION DE LA CURVA P EN EL ESPACIO Xi
+
+%%SE REALIZA LA FIGURA CORRESPONDIENTE
+figure(1);
+plot(x,y,'o'),grid;
+hold on
+plot(xi,z,'-');
+hold off
+ylabel('F(x)');
+xlabel('x');
+title('Ajuste polinomial y=a·x^3 + b·x^2 + c·x +d');

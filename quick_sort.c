@@ -20,7 +20,7 @@ void quick_sort(int A[], int p, int fin);
 /*prototipo para la función  que se encarga de mover los indices j e i al recorrer el arreglo, el movimiento de los indices se da en funcion de comparaciones. El indice i recorre el arreglo de izquierda a derecha comparando si los numeros encontrados son menores al pivote, y el indice j recorre el arreglo de derecha a izquierda comparando si los numeros encontrados son mayores al pivote, en caso de que dichas condiciones se cumplan i se incrementara en una unidad y j se decrementara en una unidad, al encontrar una pareja que valores que no cumplan las condiciones se llama a la funcion swap*/
 int pivote(int A[], int p, int fin);
 /*prototipo para la función  que se encarga de intercambiar dos numeros en un arreglo, recibe un arreglo A[], un indice i, un indice j. LOs indices indican las posiciones del arreglo cuyos valores se intercambiaran*/
-int swap(int A[], int i, int j);
+void swap(int A[], int i, int j);
 //*****************************************************************
 
 //PROGRAMA PRINCIPAL
@@ -135,8 +135,8 @@ int pivote(int A[], int p, int fin) {
 
 /*FUNCIÓN QUE REALIZA EL INTERCAMBIO DE LOS VALORES EN EL ARREGLO*/
 /* Recibe: Arreglo de enteros A[], entero i (primer valor a intercambiar) y entero j (segundo valor a intercambiar)*/
-/* Devuelve: entero */
-int swap(int A[], int i, int j) {
+/* Devuelve: vacío */
+void swap(int A[], int i, int j) {
 	int temp = A[j]; //almacenamiento de A[j] en una variable temporal
 	A[j] = A[i];	 // El valor de i es asignado a j
 	A[i] = temp;	 //El valor de j es asignado a i
