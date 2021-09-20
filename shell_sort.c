@@ -1,12 +1,18 @@
-//*****************************************************************
-//M. EN C. EDGARDO ADRIÁN FRANCO MARTÍNEZ 
-//Curso: Análisis de algoritmos
-//(C) Enero 2013
-//ESCOM-IPN
-//Ejemplo de medición de tiempo en C y recepción de parametros en C bajo UNIX
-//Compilación: "gcc main.c tiempo.x  -o main(teimpo.c si se tiene la implementación de la libreria o tiempo.o si solo se tiene el codigo objeto)"
-//Ejecución: "./main n" (Linux y MAC OS)
-//*****************************************************************
+/******************************************************************
+(C)Septiembre 2021
+EQUIPO: Ponys Salvajes
+INTEGRANTES DEL EQUIPO: 
+López Gracia Angel Emmanuel 
+López Hernández Lissete 
+Martínez Martínez Fernando 
+Martínez Ortiz Fabiola Yahel	
+  VERSIÓN: 1.0
+DESCRIPCIÓN: Implementación del algoritmo de ordenamiento shell. Mide el tiempo de ejecución del algoritmo. Se toman los valores de entrada del archivo .txt con los 10 millones de números.
+
+CURSO: Análisis de algoritmos
+COMPILACIÓN: "gcc [nombre_del_programa].c tiempo.x  -o main” 
+  EJECUCIÓN: "./main n" (Linux y MAC OS)
+*****************************************************************/
  
 //LIBRERIAS INCLUIDAS
 #include <stdio.h>
